@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ELDA Innovations — Voice-First Cultural Memory for Immigrant Elders</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --forest: #1B4332;
+    --green: #2D6A4F;
+    --mid: #40916C;
+    --sage: #74C69D;
+    --mint: #B7E4C7;
+    --cream: #F8F6F0;
+    --offwhite: #FAFAF6;
+    --gold: #C9941A;
+    --amber: #F5C842;
+    --charcoal: #1A1A1A;
+    --gray: #6B7280;
+    --light: #E9F5EE;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--offwhite);
+    color: var(--charcoal);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1.2rem 3rem;
+    background: rgba(27,67,50,0.96);
+    backdrop-filter: blur(12px);
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-weight: 700;
+    color: #fff; letter-spacing: 0.12em;
+  }
+  .nav-logo span { color: var(--sage); font-style: italic; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    color: var(--mint); font-size: 0.85rem; font-weight: 500;
+    text-decoration: none; letter-spacing: 0.06em;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: #fff; }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    background: var(--forest);
+    display: grid; grid-template-columns: 1fr 1fr;
+    position: relative; overflow: hidden;
+  }
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 8rem 4rem 6rem 5rem;
+    position: relative; z-index: 2;
+  }
+  .hero-tag {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(116,198,157,0.15);
+    border: 1px solid rgba(116,198,157,0.3);
+    color: var(--sage); font-size: 0.78rem; font-weight: 500;
+    letter-spacing: 0.1em; padding: 0.4rem 1rem;
+    border-radius: 2rem; margin-bottom: 2rem;
+    width: fit-content;
+    animation: fadeUp 0.8s ease both;
+  }
+  .hero-tag::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--sage); border-radius: 50%;
+  }
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(4rem, 8vw, 7rem);
+    font-weight: 700; color: #fff;
+    line-height: 0.95; letter-spacing: -0.02em;
+    margin-bottom: 1rem;
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+  .hero-title em {
+    font-style: italic; color: var(--sage);
+  }
+  .hero-sub {
+    font-size: 1.15rem; color: var(--mint);
+    line-height: 1.65; max-width: 480px;
+    margin-bottom: 2.5rem; font-weight: 300;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+  .hero-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+  .btn-primary {
+    background: var(--gold); color: #fff;
+    padding: 0.9rem 2rem; border-radius: 0.25rem;
+    font-size: 0.9rem; font-weight: 500; letter-spacing: 0.04em;
+    text-decoration: none; transition: all 0.2s;
+    border: none; cursor: pointer;
+  }
+  .btn-primary:hover { background: #b8841a; transform: translateY(-1px); }
+  .btn-ghost {
+    background: transparent; color: var(--mint);
+    padding: 0.9rem 2rem; border-radius: 0.25rem;
+    font-size: 0.9rem; font-weight: 500; letter-spacing: 0.04em;
+    text-decoration: none; transition: all 0.2s;
+    border: 1px solid rgba(183,228,199,0.3);
+  }
+  .btn-ghost:hover { border-color: var(--mint); color: #fff; }
+
+  .hero-right {
+    position: relative; overflow: hidden;
+    background: var(--green);
+  }
+  .hero-right::before {
+    content: '';
+    position: absolute; top: -20%; right: -20%;
+    width: 70%; height: 70%;
+    background: radial-gradient(circle, rgba(116,198,157,0.2) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-right::after {
+    content: '';
+    position: absolute; bottom: -10%; left: -10%;
+    width: 50%; height: 50%;
+    background: radial-gradient(circle, rgba(64,145,108,0.3) 0%, transparent 70%);
+    border-radius: 50%;
+  }
+  .hero-quote {
+    position: absolute; top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2; padding: 3rem;
+    text-align: center;
+    animation: fadeUp 0.8s 0.4s ease both;
+  }
+  .hero-quote blockquote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.5rem; font-style: italic;
+    color: #fff; line-height: 1.6;
+    margin-bottom: 1.5rem;
+  }
+  .hero-quote cite {
+    font-size: 0.8rem; color: var(--sage);
+    font-style: normal; letter-spacing: 0.08em;
+  }
+  .gold-bar {
+    position: absolute; left: 0; top: 15%; bottom: 15%;
+    width: 3px; background: var(--gold);
+    border-radius: 2px;
+  }
+
+  /* ── SECTIONS ── */
+  section { padding: 6rem 5rem; }
+  .section-label {
+    font-size: 0.75rem; font-weight: 500;
+    letter-spacing: 0.14em; color: var(--mid);
+    text-transform: uppercase; margin-bottom: 0.75rem;
+  }
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700; line-height: 1.15;
+    color: var(--forest); margin-bottom: 1.25rem;
+  }
+  .section-body {
+    font-size: 1.05rem; color: var(--gray);
+    line-height: 1.75; max-width: 620px;
+  }
+
+  /* ── PROBLEM ── */
+  .problem { background: var(--cream); }
+  .problem-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .problem-card {
+    background: #fff; border-radius: 0.5rem;
+    padding: 2rem 1.5rem;
+    border-top: 3px solid var(--forest);
+    box-shadow: 0 2px 20px rgba(0,0,0,0.06);
+    transition: transform 0.2s;
+  }
+  .problem-card:nth-child(2) { border-top-color: var(--green); }
+  .problem-card:nth-child(3) { border-top-color: var(--mid); }
+  .problem-card:nth-child(4) { border-top-color: var(--gold); }
+  .problem-card:hover { transform: translateY(-4px); }
+  .problem-icon {
+    font-size: 1.75rem; margin-bottom: 1rem;
+  }
+  .problem-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; font-weight: 700;
+    color: var(--forest); margin-bottom: 0.75rem;
+  }
+  .problem-card p {
+    font-size: 0.92rem; color: var(--gray); line-height: 1.65;
+  }
+
+  /* ── STATS ── */
+  .stats {
+    background: var(--forest);
+    display: flex; align-items: center;
+    gap: 0; padding: 0;
+  }
+  .stats-inner {
+    display: grid; grid-template-columns: 1fr 1fr 1fr;
+    width: 100%; border-left: 1px solid rgba(116,198,157,0.2);
+  }
+  .stat-block {
+    padding: 4rem 3rem;
+    border-right: 1px solid rgba(116,198,157,0.2);
+    text-align: center;
+  }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem; font-weight: 700;
+    color: var(--sage); line-height: 1;
+    margin-bottom: 0.5rem;
+  }
+  .stat-label {
+    font-size: 0.88rem; color: var(--mint);
+    line-height: 1.5; font-weight: 300;
+  }
+
+  /* ── FRAMEWORK ── */
+  .framework { background: var(--offwhite); }
+  .framework-layout {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 5rem; align-items: start; margin-top: 3rem;
+  }
+  .framework-foundation {
+    background: var(--forest); border-radius: 0.5rem;
+    padding: 2.5rem; margin-bottom: 1.5rem;
+    border-left: 4px solid var(--gold);
+  }
+  .framework-foundation h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.3rem; color: var(--amber);
+    margin-bottom: 0.75rem; font-weight: 700;
+  }
+  .framework-foundation p {
+    font-size: 0.95rem; color: var(--mint);
+    line-height: 1.7;
+  }
+  .pillar {
+    background: #fff; border-radius: 0.5rem;
+    padding: 1.75rem; margin-bottom: 1rem;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.06);
+    display: grid; grid-template-columns: auto 1fr;
+    gap: 1.25rem; align-items: start;
+  }
+  .pillar-num {
+    width: 2.2rem; height: 2.2rem;
+    background: var(--forest); color: #fff;
+    border-radius: 50%; display: flex;
+    align-items: center; justify-content: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1rem; font-weight: 700;
+    flex-shrink: 0; margin-top: 0.1rem;
+  }
+  .pillar h4 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.1rem; font-weight: 700;
+    color: var(--forest); margin-bottom: 0.2rem;
+  }
+  .pillar .thinker {
+    font-size: 0.78rem; color: var(--mid);
+    font-style: italic; margin-bottom: 0.5rem;
+  }
+  .pillar p {
+    font-size: 0.9rem; color: var(--gray); line-height: 1.65;
+  }
+  .plain-card {
+    background: var(--light); border-radius: 0.5rem;
+    padding: 1.75rem; margin-bottom: 1rem;
+    border-left: 3px solid var(--mid);
+  }
+  .plain-card h4 {
+    font-size: 0.95rem; font-weight: 500;
+    color: var(--forest); margin-bottom: 0.5rem;
+  }
+  .plain-card p {
+    font-size: 0.9rem; color: var(--gray); line-height: 1.65;
+  }
+
+  /* ── WISDOM CIRCLE ── */
+  .wisdom { background: var(--cream); }
+  .wisdom-compare {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2rem; margin-top: 3rem;
+  }
+  .compare-col { border-radius: 0.5rem; overflow: hidden; }
+  .compare-header {
+    padding: 1.25rem 1.75rem;
+    font-size: 0.95rem; font-weight: 500; color: #fff;
+    letter-spacing: 0.04em;
+  }
+  .compare-header.red { background: #B91C1C; }
+  .compare-header.green { background: var(--green); }
+  .compare-body { background: #fff; padding: 1.5rem 1.75rem; }
+  .compare-item {
+    display: flex; align-items: flex-start; gap: 0.75rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid #F3F4F6;
+    font-size: 0.92rem; line-height: 1.5;
+  }
+  .compare-item:last-child { border-bottom: none; }
+  .compare-item.bad { color: #B91C1C; }
+  .compare-item.good { color: var(--green); }
+  .compare-icon { flex-shrink: 0; font-weight: 700; }
+  .wisdom-note {
+    background: var(--forest); color: var(--mint);
+    border-radius: 0.5rem; padding: 1.5rem 2rem;
+    margin-top: 2rem; font-style: italic;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem; line-height: 1.6;
+    border-left: 4px solid var(--gold);
+  }
+
+  /* ── ETHICS ── */
+  .ethics { background: var(--forest); }
+  .ethics .section-title { color: #fff; }
+  .ethics .section-label { color: var(--sage); }
+  .ethics .section-body { color: var(--mint); }
+  .ethics-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .ethics-card {
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(116,198,157,0.2);
+    border-radius: 0.5rem; padding: 2rem;
+    transition: background 0.2s;
+  }
+  .ethics-card:hover { background: rgba(255,255,255,0.1); }
+  .ethics-icon { font-size: 1.5rem; margin-bottom: 1rem; }
+  .ethics-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.15rem; font-weight: 700;
+    color: var(--sage); margin-bottom: 0.6rem;
+  }
+  .ethics-card p {
+    font-size: 0.9rem; color: var(--mint);
+    line-height: 1.65;
+  }
+
+  /* ── COMMUNITIES ── */
+  .communities { background: var(--offwhite); }
+  .communities-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 1.5rem; margin-top: 3rem;
+  }
+  .community-card {
+    border-radius: 0.5rem; overflow: hidden;
+    box-shadow: 0 2px 16px rgba(0,0,0,0.08);
+  }
+  .community-header {
+    padding: 1.25rem 1.5rem;
+    color: #fff; font-weight: 500; font-size: 1rem;
+  }
+  .community-header.east { background: var(--forest); }
+  .community-header.central { background: var(--green); }
+  .community-header.west { background: var(--mid); }
+  .community-body { background: #fff; padding: 1.5rem; }
+  .community-section-title {
+    font-size: 0.72rem; font-weight: 500;
+    letter-spacing: 0.1em; color: var(--gray);
+    text-transform: uppercase; margin-bottom: 0.6rem;
+  }
+  .community-list {
+    list-style: none; margin-bottom: 1.25rem;
+  }
+  .community-list li {
+    font-size: 0.9rem; color: var(--charcoal);
+    padding: 0.3rem 0;
+    border-bottom: 1px solid #F3F4F6;
+  }
+  .community-list li:last-child { border-bottom: none; }
+  .lang-tag {
+    display: inline-block;
+    background: var(--light);
+    color: var(--forest);
+    font-size: 0.78rem; font-weight: 500;
+    padding: 0.25rem 0.6rem;
+    border-radius: 1rem; margin: 0.2rem 0.2rem 0.2rem 0;
+  }
+
+  /* ── CONTACT ── */
+  .contact {
+    background: var(--green);
+    text-align: center; padding: 6rem 3rem;
+  }
+  .contact .section-title { color: #fff; font-size: clamp(2rem, 5vw, 3.5rem); }
+  .contact .section-body { color: var(--mint); margin: 1.25rem auto 2.5rem; text-align: center; }
+  .contact-info {
+    display: flex; justify-content: center;
+    gap: 3rem; flex-wrap: wrap;
+    margin-top: 2rem;
+  }
+  .contact-item {
+    display: flex; align-items: center; gap: 0.75rem;
+    color: var(--mint); font-size: 1rem;
+  }
+  .contact-item a { color: #fff; text-decoration: none; }
+  .contact-item a:hover { color: var(--amber); }
+  .contact-icon {
+    width: 2.2rem; height: 2.2rem;
+    background: rgba(255,255,255,0.15);
+    border-radius: 50%; display: flex;
+    align-items: center; justify-content: center;
+    font-size: 0.9rem;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--forest);
+    padding: 2rem 5rem;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.2rem; font-weight: 700;
+    color: var(--sage); letter-spacing: 0.1em;
+  }
+  footer p {
+    font-size: 0.8rem; color: rgba(183,228,199,0.5);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .reveal {
+    opacity: 0; transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .reveal.visible {
+    opacity: 1; transform: translateY(0);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 900px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { min-height: 300px; }
+    .hero-left { padding: 7rem 2rem 3rem; }
+    section { padding: 4rem 1.5rem; }
+    .problem-grid { grid-template-columns: 1fr 1fr; }
+    .stats-inner { grid-template-columns: 1fr; }
+    .framework-layout { grid-template-columns: 1fr; gap: 2rem; }
+    .wisdom-compare { grid-template-columns: 1fr; }
+    .ethics-grid { grid-template-columns: 1fr 1fr; }
+    .communities-grid { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 0.75rem; text-align: center; padding: 2rem 1.5rem; }
+  }
+
+  @media (max-width: 600px) {
+    .problem-grid { grid-template-columns: 1fr; }
+    .ethics-grid { grid-template-columns: 1fr; }
+    .contact-info { flex-direction: column; align-items: center; gap: 1.25rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">ELDA <span>Innovations</span></div>
+  <ul class="nav-links">
+    <li><a href="#problem">The Problem</a></li>
+    <li><a href="#framework">Our Framework</a></li>
+    <li><a href="#circle">Elder Wisdom Circle</a></li>
+    <li><a href="#ethics">Our Ethics</a></li>
+    <li><a href="#contact">Get Involved</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <div class="hero-tag">Phase 1 · Community Discovery · Ottawa, 2026</div>
+    <h1 class="hero-title">ELDA<br><em>Innovations</em></h1>
+    <p class="hero-sub">Voice-first technology for immigrant elders — preserving language, cultural memory, and intergenerational connection across the African diaspora in Canada.</p>
+    <div class="hero-actions">
+      <a href="#contact" class="btn-primary">Get Involved</a>
+      <a href="#problem" class="btn-ghost">Learn More</a>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="hero-quote">
+      <div class="gold-bar"></div>
+      <blockquote>"I worry about losing language. About losing stories. About my future children never really knowing their grandparents. ELDA was born from that fear."</blockquote>
+      <cite>— Joy, Founder · ELDA Innovations · Ottawa</cite>
+    </div>
+  </div>
+</section>
+
+<!-- PROBLEM -->
+<section class="problem" id="problem">
+  <div class="reveal">
+    <div class="section-label">The Challenge</div>
+    <h2 class="section-title">Canada's immigrant elders face<br>challenges technology has ignored</h2>
+    <p class="section-body">A growing population of African diaspora elders in Canada carry irreplaceable cultural knowledge — stories, languages, proverbs, and traditions — with no accessible way to pass them on.</p>
+  </div>
+  <div class="problem-grid reveal">
+    <div class="problem-card">
+      <div class="problem-icon">🌍</div>
+      <h3>Social Isolation</h3>
+      <p>Many elders live far from family abroad, lack cultural social networks in Canada, and have limited access to spaces where they feel at home.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">🗣️</div>
+      <h3>Language Barriers</h3>
+      <p>English-first digital tools exclude elders whose primary languages are Swahili, Somali, Yoruba, Amharic, Tigrinya, and others.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">📱</div>
+      <h3>Digital Exclusion</h3>
+      <p>Every app and platform is designed for younger, tech-literate users. Elders are consistently left behind by the tools built to connect people.</p>
+    </div>
+    <div class="problem-card">
+      <div class="problem-icon">📖</div>
+      <h3>Cultural Loss</h3>
+      <p>When elders pass away without a way to share their knowledge, entire cultural memories disappear — stories, languages, and traditions gone forever.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stats-inner">
+    <div class="stat-block reveal">
+      <div class="stat-num">1 in 4</div>
+      <div class="stat-label">Canadians will be 65+<br>by 2030</div>
+    </div>
+    <div class="stat-block reveal">
+      <div class="stat-num">8M+</div>
+      <div class="stat-label">immigrants currently<br>living in Canada</div>
+    </div>
+    <div class="stat-block reveal">
+      <div class="stat-num">50%+</div>
+      <div class="stat-label">of seniors report<br>feelings of loneliness</div>
+    </div>
+  </div>
+</div>
+
+<!-- FRAMEWORK -->
+<section class="framework" id="framework">
+  <div class="reveal">
+    <div class="section-label">Our Intellectual Foundation</div>
+    <h2 class="section-title">A framework built on<br>three interconnected ideas</h2>
+    <p class="section-body">ELDA is not just a technology project. It is grounded in a carefully considered theoretical framework that explains why this problem exists and why our approach is different.</p>
+  </div>
+  <div class="framework-layout">
+    <div class="reveal">
+      <div class="framework-foundation">
+        <h3>Foundation: Relational Knowledge Ethics</h3>
+        <p>Knowledge is not extracted — it is held in relationship. Elder stories, languages, and cultural memory belong to living webs of connection, not databases. This is the operating logic behind every decision ELDA makes. It is Ubuntu in practice, not just in name.</p>
+      </div>
+      <div class="pillar reveal">
+        <div class="pillar-num">1</div>
+        <div>
+          <h4>Intergenerational Cultural Memory Theory</h4>
+          <div class="thinker">Jan Assmann</div>
+          <p>Societies maintain identity through stories, language, and ritual passed between generations. When the chain breaks — as it does in migration — identity fractures. ELDA repairs that chain.</p>
+        </div>
+      </div>
+      <div class="pillar reveal">
+        <div class="pillar-num">2</div>
+        <div>
+          <h4>Epistemic Injustice Applied to Diaspora Aging</h4>
+          <div class="thinker">Miranda Fricker</div>
+          <p>Immigrant elders' ways of knowing are rendered invisible by systems not built for them. The absence of culturally grounded technology is a structural failure, not a market gap.</p>
+        </div>
+      </div>
+      <div class="pillar reveal">
+        <div class="pillar-num">3</div>
+        <div>
+          <h4>Generativity in Later Life</h4>
+          <div class="thinker">Erik Erikson</div>
+          <p>Elders' wellbeing depends on being able to pass wisdom forward. When they cannot, isolation and decline follow. ELDA is not just a cultural tool — it is a health intervention.</p>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <div class="section-label" style="margin-bottom:1rem;">In plain language</div>
+      <div class="plain-card">
+        <h4>Cultural Memory Theory means...</h4>
+        <p>Think about what happens when a grandfather's stories about the village, the migration, the family history disappear with him. That knowledge lived only in him. The chain broke. ELDA is designed to help repair that chain before it breaks.</p>
+      </div>
+      <div class="plain-card">
+        <h4>Epistemic Injustice means...</h4>
+        <p>Most technology tools were designed by and for people in English-speaking, Western contexts. When an elder who speaks Somali or Tigrinya tries to use those tools, they don't work — not because of the elder, but because the elder was never considered. ELDA considers them first.</p>
+      </div>
+      <div class="plain-card">
+        <h4>Generativity in Aging means...</h4>
+        <p>One of the most deeply human needs as we grow older is the drive to leave something behind — to pass on what we know, what we've lived, what we believe. When elders can't do this, it affects their health. ELDA gives elders a dignified way to do exactly that.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ELDER WISDOM CIRCLE -->
+<section class="wisdom" id="circle">
+  <div class="reveal">
+    <div class="section-label">Our Methodology</div>
+    <h2 class="section-title">The Elder Wisdom Circle</h2>
+    <p class="section-body">Instead of traditional focus groups, ELDA is building something more relational. A small group of trusted elders from different African diaspora communities in Ottawa who co-design the research alongside us.</p>
+  </div>
+  <div class="wisdom-compare reveal">
+    <div class="compare-col">
+      <div class="compare-header red">Traditional Focus Groups</div>
+      <div class="compare-body">
+        <div class="compare-item bad"><span class="compare-icon">✗</span> One-time sessions — 60 to 90 minutes</div>
+        <div class="compare-item bad"><span class="compare-icon">✗</span> Participants don't feel ownership</div>
+        <div class="compare-item bad"><span class="compare-icon">✗</span> Harder to build trust with elders</div>
+        <div class="compare-item bad"><span class="compare-icon">✗</span> Data collected, community rarely benefits</div>
+        <div class="compare-item bad"><span class="compare-icon">✗</span> Researcher extracts, community gives</div>
+      </div>
+    </div>
+    <div class="compare-col">
+      <div class="compare-header green">ELDA Elder Wisdom Circle</div>
+      <div class="compare-body">
+        <div class="compare-item good"><span class="compare-icon">✓</span> 6 to 8 elders — ongoing over months</div>
+        <div class="compare-item good"><span class="compare-icon">✓</span> Elders co-design the research</div>
+        <div class="compare-item good"><span class="compare-icon">✓</span> Trust builds over time — depth of insight</div>
+        <div class="compare-item good"><span class="compare-icon">✓</span> Findings shared back with participants</div>
+        <div class="compare-item good"><span class="compare-icon">✓</span> Community members earn honorariums</div>
+      </div>
+    </div>
+  </div>
+  <div class="wisdom-note reveal">
+    "One elder from each target community — a trusted voice, a community connector, a holder of cultural knowledge."
+  </div>
+</section>
+
+<!-- ETHICS -->
+<section class="ethics" id="ethics">
+  <div class="reveal">
+    <div class="section-label">Our Commitment</div>
+    <h2 class="section-title">Built on ethics, not just values</h2>
+    <p class="section-body">African and Black communities have often been asked to give — their data, their stories, their time — without seeing anything come back. ELDA is built to be structurally different.</p>
+  </div>
+  <div class="ethics-grid reveal">
+    <div class="ethics-card">
+      <div class="ethics-icon">🤝</div>
+      <h3>Reciprocity</h3>
+      <p>Every interaction gives something before it asks for anything. Elders and community organizations are partners, not sources of data.</p>
+    </div>
+    <div class="ethics-card">
+      <div class="ethics-icon">🛡️</div>
+      <h3>Community Ownership</h3>
+      <p>Elders own their own stories. Their recordings, their words, their cultural knowledge do not become ELDA's property. Full stop.</p>
+    </div>
+    <div class="ethics-card">
+      <div class="ethics-icon">💡</div>
+      <h3>Transparency</h3>
+      <p>ELDA is eventually a social enterprise with a product. We say that openly. There are no hidden agendas about how this work will evolve.</p>
+    </div>
+    <div class="ethics-card">
+      <div class="ethics-icon">📋</div>
+      <h3>Findings Shared Back</h3>
+      <p>Every participating organization receives a summary of what we learned. The community benefits from its own contribution to this research.</p>
+    </div>
+    <div class="ethics-card">
+      <div class="ethics-icon">💰</div>
+      <h3>Honorariums</h3>
+      <p>Elder participants are compensated for their time. Their knowledge has value, and we treat it that way from the very first conversation.</p>
+    </div>
+    <div class="ethics-card">
+      <div class="ethics-icon">🌱</div>
+      <h3>Anti-Extraction</h3>
+      <p>We do not study communities from the outside. We build with them from the inside. That is not a tagline — it is a design principle.</p>
+    </div>
+  </div>
+</section>
+
+<!-- COMMUNITIES -->
+<section class="communities" id="communities">
+  <div class="reveal">
+    <div class="section-label">Phase 1 Focus</div>
+    <h2 class="section-title">Our pilot communities</h2>
+    <p class="section-body">ELDA's discovery work is focused on African diaspora communities in Ottawa. These communities were chosen because of trusted, insider relationships that allow us to listen with cultural sensitivity and genuine credibility.</p>
+  </div>
+  <div class="communities-grid reveal">
+    <div class="community-card">
+      <div class="community-header east">🌍 East Africa</div>
+      <div class="community-body">
+        <div class="community-section-title">Communities</div>
+        <ul class="community-list">
+          <li>Kenyan</li><li>Somali</li><li>Ethiopian</li><li>Eritrean</li>
+        </ul>
+        <div class="community-section-title">Languages</div>
+        <span class="lang-tag">Swahili</span>
+        <span class="lang-tag">Somali</span>
+        <span class="lang-tag">Amharic</span>
+        <span class="lang-tag">Tigrinya</span>
+      </div>
+    </div>
+    <div class="community-card">
+      <div class="community-header central">🌍 Central Africa</div>
+      <div class="community-body">
+        <div class="community-section-title">Communities</div>
+        <ul class="community-list">
+          <li>Congolese</li><li>Rwandan</li>
+        </ul>
+        <div class="community-section-title">Languages</div>
+        <span class="lang-tag">Lingala</span>
+        <span class="lang-tag">Kinyarwanda</span>
+        <span class="lang-tag">French</span>
+      </div>
+    </div>
+    <div class="community-card">
+      <div class="community-header west">🌍 West Africa</div>
+      <div class="community-body">
+        <div class="community-section-title">Communities</div>
+        <ul class="community-list">
+          <li>Nigerian</li><li>Ghanaian</li>
+        </ul>
+        <div class="community-section-title">Languages</div>
+        <span class="lang-tag">Yoruba</span>
+        <span class="lang-tag">Igbo</span>
+        <span class="lang-tag">Nigerian Pidgin</span>
+        <span class="lang-tag">Akan / Twi</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contact">
+  <div class="reveal">
+    <div class="section-label" style="color:var(--mint);">Get Involved</div>
+    <h2 class="section-title">Let's build this together.</h2>
+    <p class="section-body">ELDA is still in its earliest stage — and that's exactly why your voice matters most right now. Before any technology is built, we need to listen. Help us get it right.</p>
+    <div class="contact-info">
+      <div class="contact-item">
+        <div class="contact-icon">✉️</div>
+        <a href="mailto:eldainnovations@gmail.com">eldainnovations@gmail.com</a>
+      </div>
+      <div class="contact-item">
+        <div class="contact-icon">📍</div>
+        <span>Ottawa, Ontario, Canada</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">ELDA Innovations</div>
+  <p>Phase 1 · Community Discovery · Ottawa 2026</p>
+  <p style="color:rgba(183,228,199,0.4);font-size:0.78rem;">Preserving language, culture, and connection across generations</p>
+</footer>
+
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
